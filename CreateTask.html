@@ -1,0 +1,122 @@
+<html>
+  <head>
+    <title> Covid-19 Symptom Test </title>
+    <script>
+      var questions = ["Are you experiencing shortness of breath?", "Are you coughing and/or sneezing often?", "Have you lost your sense of taste?", "Have you come into contact with someone who has/had COVID?", "Are you social distancing?", "Are you able to stay awake?", "Do you have a sore throat?"];
+      var solutions = ["yes", "yes", "yes", "yes", "no", "no", "yes"];//todo: add more qs and no qs
+      var answers = [];
+      var index = 0;
+
+        function showQuestions()
+        {
+          document.getElementById('list').innerHTML = questions[index];
+          answers[index] = document.getElementById('answer').value;
+          index = index + 1;
+          if (index >= 4)
+          {
+            checkAnswers();
+          }
+        }
+
+        function userAnswers()
+        {
+          answers[index] = document.getElementById('userAnswer').value;
+          index = index + 1;
+         if(index == 4)
+         {
+           checkAnswers();
+         }
+        }
+
+        function checkAnswers()
+        {
+                var results = 0;
+          for (var i = 0; i >= 4 ; i++)
+          {
+            if(answers[index] == solutions[index])// plus to having covid
+            {
+                results = results + 1;
+            }
+            else {
+              results = results - 1;//minus towards not having it
+            }
+          }
+
+
+          displayScore(results);
+        }
+
+        function displayScore(results)
+        {
+            if(results < 0)
+            {
+              results = results * -1;
+              resuslts = results * 10;
+              //20 % sure you dont have it
+            }
+
+          else if(results > 0){
+          //40 % sure you have Covid
+          }
+          else {
+            {
+              //inconclusive results
+            }
+          }
+          document.getElementById("list").HTML = "Results:" + results;
+        }
+
+    </script>
+    <style>
+      h1 {
+        font-family: monospace;
+        border-radius: 8px;
+        color: black;
+        background-color: red;
+        border: dotted white;
+        text-align: center;
+      }
+
+      p {
+        font-family: monospace;
+        font-size: 15px;
+        border-radius: 8px;
+        color: black;
+        background-color: red;
+        border: dotted white;
+        text-align: center;
+      }
+
+      body {
+        border-radius: 4px;
+        border: solid white;
+        background-image: url("coronavirus.jpg");
+      }
+
+      #answer {
+        border-radius: 8px;
+        width: 20%
+      }
+
+      #questions {
+        color: white;
+        border-radius: 8px;
+        background-color: red;
+      }
+
+    </style>
+  </head>
+  <body>
+    <br>
+    <h1> COVID-19 Symptom Test
+    <p> Note: This test cannot predict whether or not you have COVID. If you are experiencing any severe symptoms, immediately seek medical attention. </p></h1>
+    <p> (please type "yes" or "no" to the following questions)
+    <p>(click the next button to show answers)
+    <br><br>
+    <input type = "text" id = "answer">
+    <input type = "button" value = "Next" id = "button" onclick = showQuestions()>
+    <br><br><br>
+    <span id = list></span>
+    <br><br>
+  </body>
+</html>
